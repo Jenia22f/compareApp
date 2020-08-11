@@ -5,7 +5,8 @@ const errorHandler = require('../utils/errorHandler');
 module.exports.getUrl = async function (req, res) {
 
     const userAgent = new UserAgent({
-        value: req.body.value
+        UserAgent: req.body.UserAgent,
+        UTM: req.body.UTM
     });
     try {
         await userAgent.save()
