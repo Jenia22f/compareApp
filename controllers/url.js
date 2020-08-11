@@ -14,9 +14,10 @@ module.exports.getUrl = async function (req, res) {
         if (blackIp) {
             res.status(200).json(false)
         } else {
-            let url = checkCountry(req.ip)
+            // let url = checkCountry(req.ip)
             res.status(200).json({status: true,
-            url: url})
+            url: url,
+            ip: req.ip})
         }
 
     } catch (e) {
