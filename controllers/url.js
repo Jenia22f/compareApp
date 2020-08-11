@@ -19,7 +19,7 @@ module.exports.getUrl = async function (req, res) {
             if (url === null) reason = 'Invalid country'
             await saveUser(reason, url, req).save()
             res.status(200).json({status: true,
-            url: url})
+            url: url, us: req.body.UserAgent, su: req.body.UTM})
         }
 
     } catch (e) {
@@ -58,6 +58,5 @@ function saveUser(reason, url, req) {
         language: req.body.language,
         url: url
     });
-
     return user
 }
