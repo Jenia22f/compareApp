@@ -51,12 +51,12 @@ function checkCountry(ip) {
 }
 
 function saveUser(reason, url, req) {
-    const user = new User({
+    let user;
+    return user = new User({
         UserAgent: req.body.UserAgent,
         UTM: req.body.UTM,
         reason: reason,
         language: req.body.language,
         url: url
     });
-    return user
 }
