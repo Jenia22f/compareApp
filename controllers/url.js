@@ -14,11 +14,12 @@ module.exports.getUrl = async function (req, res) {
         if (blackIp) {
             res.status(200).json(false)
         } else {
-            // let url = checkCountry(req.ip)
-            let url = 'checkCountry(req.ip)'
+            if (req.ip.substr(0, 7) === "::ffff:") {
+          let ip = req.ip.substr(7)
+    }
+            let url = checkCountry(ip)
             res.status(200).json({status: true,
-            url: url,
-            ip: req.ip})
+            url: url})
         }
 
     } catch (e) {
@@ -27,7 +28,7 @@ module.exports.getUrl = async function (req, res) {
 }
 
 function checkCountry(ip) {
-    if (ip === '::1') ip = '207.97.227.239';
+    // if (ip === '::1') ip = '207.97.227.239';
     let geo = geoip.lookup(ip);
     switch (geo.country) {
         case "CN":
