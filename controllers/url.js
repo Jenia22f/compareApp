@@ -1,12 +1,18 @@
 const Ip = require('../models/IpAddress');
+const UserAgent = require('../models/UserAgent');
 const errorHandler = require('../utils/errorHandler');
 
 module.exports.getUrl = async function (req, res) {
+
+    const userAgent =  new UserAgent({
+        value: req.body.value
+    });
     try {
+        await userAgent.save()
         const black = [
             '1.0.0.0-1.0.0.255', '1.1.1.0-1.1.1.255', '1.119.0.0-1.119.127.255']
         let ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-    //     const blackIp = await Ip.findOne({ip: ip})
+        // const blackIp = await Ip.findOne({ip: ip})
         const blackIp = await black.find(el => el === ip)
         if (blackIp) {
             res.status(200).json(false)

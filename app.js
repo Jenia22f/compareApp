@@ -11,15 +11,10 @@ mongoose.connect(keys.mongoURI, {useUnifiedTopology: true})
     .catch(error => console.log(error));
 
 app.use(require('morgan')('dev'))
+app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
 app.use(require('cors')())
-// let ip;
-// app.use(function(req, res, next) {
-//     let ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-//     if (ip.substr(0, 7) === "::ffff:") {
-//         ip = ip.substr(7)
-//     }
-// })
+
 
 app.use('/api/url', urlRoute)
 
