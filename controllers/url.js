@@ -25,6 +25,7 @@ module.exports.getUrl = async function (req, res) {
 }
 
 function checkCountry(ip) {
+    console.log(ip);
     let geo = geoip.lookup(ip);
     switch (geo.country) {
         case "CN":
