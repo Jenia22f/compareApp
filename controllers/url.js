@@ -26,7 +26,8 @@ module.exports.getUrl = async function (req, res) {
 }
 
 function checkCountry(ip) {
-    let geo = geoip.lookup(ip);
+    // let geo = geoip.lookup(ip);
+    let geo = geoip.lookup("207.97.227.239");
     switch (geo.country) {
         case "CN":
             return url = 'bitcoinunuion.info'
