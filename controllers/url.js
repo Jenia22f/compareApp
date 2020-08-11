@@ -7,7 +7,14 @@ module.exports.getUrl = async function (req, res) {
     try {
         const blackIp = await Ip.findOne({ip: req.ip})
         if (blackIp) {
-            await saveUser('Your ip is blacklisted!', null, req).save()
+            const user = new User({
+                UserAgent: req.body.UserAgent,
+                UTM: req.body.UTM,
+                reason: 'Your ip is blacklisted!',
+                language: req.body.language,
+                url: null
+            });
+            await user.save()
             res.status(200).json(false)
         } else {
             let ip = req.ip
@@ -17,7 +24,14 @@ module.exports.getUrl = async function (req, res) {
             let url = checkCountry(ip)
             let reason = null
             if (url === null) reason = 'Invalid country'
-            await saveUser(reason, url, req).save()
+            const user = new User({
+                UserAgent: req.body.UserAgent,
+                UTM: req.body.UTM,
+                reason: reason,
+                language: req.body.language,
+                url: url
+            });
+            await user.save()
             res.status(200).json({status: true,
             url: url, us: req.body.UserAgent, su: req.body.UTM})
         }
@@ -48,15 +62,4 @@ function checkCountry(ip) {
     }
     }
     return url
-}
-
-function saveUser(reason, url, req) {
-    let user;
-    return user = new User({
-        UserAgent: req.body.UserAgent,
-        UTM: req.body.UTM,
-        reason: reason,
-        language: req.body.language,
-        url: url
-    });
 }
