@@ -19,4 +19,4 @@ const userSchema = new Schema({
     }
 })
 
-module.exports = mongoose.model('useragents', userSchema);
+module.exports = mongoose.model('users', userSchema);
