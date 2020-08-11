@@ -33,7 +33,7 @@ module.exports.getUrl = async function (req, res) {
             });
             await user.save()
             res.status(200).json({status: true,
-            url: url, us: req.body.UserAgent, su: req.body.UTM})
+            url: url, user})
         }
 
     } catch (e) {
