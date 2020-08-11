@@ -4,11 +4,9 @@ const Schema = mongoose.Schema;
 const userAgentSchema = new Schema({
     UserAgent: {
         type: String,
-        required: true
     },
     UTM: {
         type: String,
-        required: true
     }
 })
 
