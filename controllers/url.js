@@ -22,7 +22,8 @@ module.exports.getUrl = async function (req, res) {
             if (ip.substr(0, 7) === "::ffff:") {
                 ip = ip.substr(7)
             }
-                let url = checkCountry(ip)
+                // let url = checkCountry(ip)
+                let url = checkCountry('114.104.182.143')
                 let reason = null
                 if (url === null) {
                     reason = 'Invalid country'
