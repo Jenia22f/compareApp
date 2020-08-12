@@ -56,15 +56,15 @@ function checkCountry(ip) {
     } else {
         switch (geo.country) {
             case "CN":
-                return url = 'bitcoinunuion.info/'
+                return url = 'bitcoinunuion.info'
             case "UK":
-                return url = 'bitcoinunuion.info/'
+                return url = 'bitcoinunuion.info'
             case "AU":
-                return url = 'bitcoinunuion.info/'
+                return url = 'bitcoinunuion.info'
             case "SG":
-                return url = 'bitcoinunuion.info/'
+                return url = 'bitcoinunuion.info'
             case "PL":
-                return url = 'profitmaximum.pl/'
+                return url = 'profitmaximum.pl'
             default:
                 return url = null;
         }
