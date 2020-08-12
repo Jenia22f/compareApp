@@ -17,19 +17,19 @@ app.use(bodyParser.json())
 app.use(require('cors')())
 
 
-const fs = require("fs");
-const Ip = require('./models/IpAddress');
-fs.readFile("./txt/ips.txt", "utf8",
-    (error,data) => {
-    let arr = data.split('\n')
-        arr.forEach(i => {
-            i = i.replace(/ +/g, ' ').trim()
-            const ip = new Ip({
-                ip: i
-            })
-            ip.save()
-        })
-    });
+// const fs = require("fs");
+// const Ip = require('./models/IpAddress');
+// fs.readFile("./txt/ips.txt", "utf8",
+//     (error,data) => {
+//     let arr = data.split('\n')
+//         arr.forEach(i => {
+//             i = i.replace(/ +/g, ' ').trim()
+//             const ip = new Ip({
+//                 ip: i
+//             })
+//             ip.save()
+//         })
+//     });
 
 app.use('/api/url', urlRoute)
 
