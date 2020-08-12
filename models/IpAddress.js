@@ -2,7 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const ipAddressSchema = new Schema({
-    ip: {
+    firstDiapason: {
+        type: String
+    },
+    secondDiapason: {
         type: String
     }
 })

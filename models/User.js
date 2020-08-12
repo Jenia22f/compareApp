@@ -16,6 +16,21 @@ const userSchema = new Schema({
     },
     url: {
         type: String
+    },
+    ip: {
+        type: String
+    },
+    country: {
+        type: String
+    },
+    city: {
+        type: String
+    },
+    bot: {
+        type: String
+    },
+    unique: {
+        type: String
     }
 })
 

@@ -17,19 +17,35 @@ app.use(bodyParser.json())
 app.use(require('cors')())
 
 
-// const fs = require("fs");
-// const Ip = require('./models/IpAddress');
-// fs.readFile("./txt/ips.txt", "utf8",
-//     (error,data) => {
-//     let arr = data.split('\n')
-//         arr.forEach(i => {
-//             i = i.replace(/ +/g, ' ').trim()
-//             const ip = new Ip({
-//                 ip: i
-//             })
-//             ip.save()
-//         })
-//     });
+const fs = require("fs");
+const Ip = require('./models/IpAddress');
+fs.readFile("./txt/ips.txt", "utf8",
+    (error,data) => {
+    let array = data.split('\n')
+        let arr1 = array.map(arr => arr.split('-'));
+        arr1.map(i => {
+           let newArr = []
+           let y = i.map(a => {
+           a = a.split('.').map(item => {
+                    if ((item.length < 1)) return item = '000'
+                    if (item.length === 1) return   item = '00' + item
+                    if (item.length === 2) return  item = '0' + item
+                    if (item.length === 3 || item.length > 3) return item
+                })
+
+               newArr.push(a)
+           })
+                if (!newArr[1]) return ['000', '000', '000', '000']
+           const ip = new Ip({
+                   firstDiapason: newArr[0].join(''),
+                   secondDiapason: newArr[1].join('')
+               })
+               ip.save()
+       });
+
+
+    });
+
 
 app.use('/api/url', urlRoute)
 
