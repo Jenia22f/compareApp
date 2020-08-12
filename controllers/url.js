@@ -6,11 +6,12 @@ const errorHandler = require('../utils/errorHandler');
 module.exports.getUrl = async function (req, res) {
     try {
         const blackIp = await Ip.findOne({ip: req.ip})
+
         if (blackIp) {
             const user = new User({
                 UserAgent: req.body.UserAgent,
                 UTM: req.body.UTM,
-                reason: 'Your ip is blacklisted!',
+                reason: 'This ip is in black list!',
                 language: req.body.language,
                 url: null
             });

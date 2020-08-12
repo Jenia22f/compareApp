@@ -7,4 +7,4 @@ const ipAddressSchema = new Schema({
     }
 })
 
-module.exports = mongoose.model('urls', ipAddressSchema);
+module.exports = mongoose.model('ip', ipAddressSchema);
