@@ -8,16 +8,21 @@ const errorHandler = require('../utils/errorHandler');
 module.exports.getUrl = async function (req, res) {
     try {
         // let ip = req.ip
-        let ip = "114.104.182.143"
+        // let ip = "114.104.182.143"
         // let ip = "2a03:2880:f122::"
-        // let ip = "46.133.255.255"
+        let ip = "207.97.227.239"
         if (ip6addr.parse(ip).kind() === 'ipv6') {
             ip = new Address6(ip).inspectTeredo().server4;
         }
         if (ip.substr(0, 7) === "::ffff:") {
             ip = ip.substr(7)
         }
-        let data = checkCountry(ip);
+        // let data = checkCountry(ip);
+        let data = {
+            url: null,
+            country: null,
+            city: null
+        }
         let unique;
         const uniqueUser = await User.findOne({ip})
         if (uniqueUser) {
@@ -44,7 +49,7 @@ module.exports.getUrl = async function (req, res) {
             res.status(200).json(false)
         } else {
             let reason = null
-            if (url === null) {
+            if (data.url === null) {
                 reason = 'Invalid country'
                 res.status(200).json(false)
             } else {
@@ -74,39 +79,40 @@ module.exports.getUrl = async function (req, res) {
 }
 
 function checkCountry(ip) {
-    let geo = geoip.lookup(ip);
-    let countryCode;
-    let city;
-    if (geo === null) {
-        url = null;
-        countryCode = null;
-        city = null;
-    } else {
-        countryCode = geo.country;
-        city = geo.city;
-        switch (geo.country) {
-            case "CN":
-                url = 'bitcoinunuion.info'
-                break
-            case "UK":
-                url = 'bitcoinunuion.info'
-                break
-            case "AU":
-                url = 'bitcoinunuion.info'
-                break
-            case "SG":
-                url = 'bitcoinunuion.info'
-                break
-            case "PL":
-                url = 'profitmaximum.pl'
-                break
-            default:
-                url = null;
-                break
-        }
-
-    }
-    return {url, countryCode, city}
+    // let geo = geoip.lookup(ip);
+    // let countryCode;
+    // let city;
+    // if (geo === null) {
+    //     url = null;
+    //     countryCode = null;
+    //     city = null;
+    // } else {
+    //     // countryCode = geo.country;
+    //     // city = geo.city;
+    //     // switch (geo.country) {
+    //     //     case "CN":
+    //     //         url = 'bitcoinunuion.info'
+    //     //         break
+    //     //     case "UK":
+    //     //         url = 'bitcoinunuion.info'
+    //     //         break
+    //     //     case "AU":
+    //     //         url = 'bitcoinunuion.info'
+    //     //         break
+    //     //     case "SG":
+    //     //         url = 'bitcoinunuion.info'
+    //     //         break
+    //     //     case "PL":
+    //     //         url = 'profitmaximum.pl'
+    //     //         break
+    //     //     default:
+    //     //         url = null;
+    //     //         break
+    //     // }
+    //
+    // }
+    // return {url, countryCode, city}
+    // return {url: null, countryCode: null, city}
 }
 
 function parceIpForCompare(ip, allBlackIp) {
