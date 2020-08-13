@@ -14,7 +14,7 @@ app.use(require('morgan')('dev'))
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
 app.use(require('cors')())
-
+app.set('trust proxy',true);
 //Start download black ip from ips.txt
 // const fs = require("fs");
 // const Netmask = require('netmask').Netmask
