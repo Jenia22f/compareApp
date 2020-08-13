@@ -7,8 +7,8 @@ const errorHandler = require('../utils/errorHandler');
 
 module.exports.getUrl = async function (req, res) {
     try {
-        // let ip = req.ip
-        let ip = "114.104.182.143"
+        let ip = req.ip
+        // let ip = "114.104.182.143"
         // let ip = "2a03:2880:f122::"
         // let ip = "207.97.227.239"
         if (ip6addr.parse(ip).kind() === 'ipv6') {
