@@ -98,7 +98,6 @@ function checkCountry(ip) {
 
     }
     return {url, countryCode, city}
-    return {url: null, countryCode: null, city}
 }
 
 function parceIpForCompare(ip, allBlackIp) {
