@@ -4,12 +4,15 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
     UserAgent: {
         type: String,
+        // required: true
     },
     UTM: {
         type: String,
+        // required: true
     },
     language: {
-        type: String
+        type: String,
+        // required: true
     },
     reason: {
         type: String

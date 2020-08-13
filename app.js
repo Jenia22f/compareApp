@@ -6,7 +6,7 @@ const urlRoute = require('./routes/url');
 const keys = require('./config/keys')
 const app = express();
 
-mongoose.connect(keys.mongoURI, {useUnifiedTopology: true})
+mongoose.connect(keys.mongoURI, {useUnifiedTopology: true, useNewUrlParser: true })
     .then(() => console.log('MongoDB connected'))
     .catch(error => console.log(error));
 
@@ -28,6 +28,7 @@ app.use(require('cors')())
 //             if (i[0].includes('/') && ip6addr.parse(i[0].substr(0, i[0].indexOf('/'))).kind() === 'ipv6') {
 //                 let ipv6Ip = ip6addr.createCIDR(i[0].split('/')[0], +i[0].split('/')[1])
 //                 let addr = ip6addr.parse(i[0].split('/')[0])
+
 //                 i[0] = i[0].split('/')[0].split(':')
 //                 i[1] = ipv6Ip.last().toString()
 //
