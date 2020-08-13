@@ -8,7 +8,6 @@ const errorHandler = require('../utils/errorHandler');
 module.exports.getUrl = async function (req, res) {
     try {
         // let ip = req.ip
-        // let userAgent = req.headers['user-agent'];
         let ip = "114.104.182.143"
         // let ip = "2a03:2880:f122::"
         // let ip = "46.133.255.255"
@@ -129,5 +128,6 @@ function compareIp(ip, allBlackIp) {
             block = true
         }
     })
-    return block
+    // return block
+    return false
 }
