@@ -15,8 +15,11 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "geoip-lite": "^1.4.2",
+    "ip-address": "^6.3.0",
+    "ip6addr": "^0.2.3",
     "mongoose": "^5.9.28",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "netmask": "^1.0.6"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"
