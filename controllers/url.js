@@ -85,16 +85,7 @@ function checkCountry(ip) {
         countryCode = geo.country;
         city = geo.city;
         switch (geo.country) {
-            case "CN":
-                url = 'bitcoinunuion.info'
-                break
-            case "UK":
-                url = 'bitcoinunuion.info'
-                break
-            case "AU":
-                url = 'bitcoinunuion.info'
-                break
-            case "SG":
+            case "CN" || "UK" || "AU" || "SG":
                 url = 'bitcoinunuion.info'
                 break
             case "PL":
