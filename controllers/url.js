@@ -11,9 +11,9 @@ module.exports.getUrl = async function (req, res) {
         let ip = "114.104.182.143"
         // let ip = "2a03:2880:f122::"
         // let ip = "46.133.255.255"
-        // if (ip6addr.parse(ip).kind() === 'ipv6') {
-        //     ip = new Address6(ip).inspectTeredo().server4;
-        // }
+        if (ip6addr.parse(ip).kind() === 'ipv6') {
+            ip = new Address6(ip).inspectTeredo().server4;
+        }
         if (ip.substr(0, 7) === "::ffff:") {
             ip = ip.substr(7)
         }
