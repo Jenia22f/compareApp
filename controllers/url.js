@@ -43,7 +43,7 @@ module.exports.getUrl = async function (req, res) {
                 dataTime: date
             });
             await user.save()
-            res.status(200).json(false)
+            res.status(200).json({status: false})
         } else {
             let reason = null
             if (data.url === null) {
@@ -52,7 +52,7 @@ module.exports.getUrl = async function (req, res) {
                 } else {
                     reason = data.reason
                 }
-                res.status(200).json(false)
+                res.status(200).json({status: false})
             } else {
                 res.status(200).json({
                     status: true,
