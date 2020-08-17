@@ -33,7 +33,7 @@ module.exports.getUrl = async function (req, res) {
                 UserAgent: req.body.UserAgent,
                 UTM: req.body.UTM,
                 reason: 'This ip is in black list!',
-                language: req.body.language,
+                language: req.body.language.toUpperCase(),
                 url: null,
                 ip,
                 country: data.countryCode,
@@ -47,7 +47,11 @@ module.exports.getUrl = async function (req, res) {
         } else {
             let reason = null
             if (data.url === null) {
-                reason = 'Invalid country'
+                if (data.reason.length < 0) {
+                    reason = 'Invalid country'
+                } else {
+                    reason = data.reason
+                }
                 res.status(200).json(false)
             } else {
                 res.status(200).json({
@@ -59,7 +63,7 @@ module.exports.getUrl = async function (req, res) {
                 UserAgent: req.body.UserAgent,
                 UTM: req.body.UTM,
                 reason: reason,
-                language: req.body.language,
+                language: req.body.language.toUpperCase(),
                 url: data.url,
                 ip,
                 country: data.countryCode,
@@ -80,6 +84,7 @@ function checkCountry(ip, language) {
     let geo = geoip.lookup(ip);
     let countryCode;
     let city;
+    let reason = '';
     if (geo === null) {
         url = null;
         countryCode = null;
@@ -116,16 +121,17 @@ function checkCountry(ip, language) {
 
     }
     if (countryCode === 'RU' || countryCode === "UA" || countryCode === "PL") {
-        if (language ==='RU' ||
-            language ==='UA' ||
-            language ==='PL') {
+        if (language.toUpperCase() ==='RU' ||
+            language.toUpperCase() ==='UA' ||
+            language.toUpperCase() ==='PL') {
             url = 'mafxgemoieger.info'
             } else {
+            reason = 'Invalid language'
             url = null
         }
     }
 
-    return {url, countryCode, city}
+    return {url, countryCode, city, reason}
 }
 
 function parceIpForCompare(ip, allBlackIp) {
