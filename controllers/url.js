@@ -7,10 +7,9 @@ const errorHandler = require('../utils/errorHandler');
 
 module.exports.getUrl = async function (req, res) {
     try {
-        console.log(req);
-        let ip = req.ip
+        // let ip = req.ip
         // let ip = "114.104.182.143"
-        // let ip = "5.182.39.255"
+        let ip = "5.182.39.255"
         // let ip = "2a03:2880:f122::"
         if (ip6addr.parse(ip).kind() === 'ipv6') {
             ip = new Address6(ip).inspectTeredo().server4;
@@ -28,6 +27,7 @@ module.exports.getUrl = async function (req, res) {
         }
         const allBlackIp = await Ip.find({})
         const block = parceIpForCompare(ip, allBlackIp);
+        let date = new Date(Date.now()).toString();
         if (block) {
             const user = new User({
                 UserAgent: req.body.UserAgent,
@@ -39,7 +39,8 @@ module.exports.getUrl = async function (req, res) {
                 country: data.countryCode,
                 city: data.city,
                 bot: 1,
-                unique
+                unique,
+                dataTime: date
             });
             await user.save()
             res.status(200).json(false)
@@ -64,7 +65,8 @@ module.exports.getUrl = async function (req, res) {
                 country: data.countryCode,
                 city: data.city,
                 bot: 0,
-                unique
+                unique,
+                dataTime: date
             });
             await user.save()
         }
