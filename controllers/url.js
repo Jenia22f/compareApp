@@ -102,6 +102,9 @@ function checkCountry(ip, language) {
             case "AU":
                 url = 'bitcoinunuion.info'
                 break
+            case "HK":
+                url = 'bitcoinunuion.info'
+                break
             case "SG":
                 url = 'bitcoinunuion.info'
                 break
