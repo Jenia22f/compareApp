@@ -11,10 +11,13 @@ module.exports.getUrl = async function (req, res) {
         if (ip6addr.parse(ip).kind() === 'ipv6') {
             ip = new Address6(ip).inspectTeredo().server4;
         }
+
         if (ip.substr(0, 7) === "::ffff:") {
             ip = ip.substr(7)
         }
+
         let data = checkCountry(ip, req.body.language);
+
         let unique;
         const uniqueUser = await User.findOne({ip})
         if (uniqueUser) {
@@ -22,8 +25,10 @@ module.exports.getUrl = async function (req, res) {
         } else {
             unique = 1
         }
-        const allBlackIp = await Ip.find({})
-        const block = parceIpForCompare(ip, allBlackIp);
+
+        // const allBlackIp = await Ip.find({})
+        // const block = parceIpForCompare(ip, allBlackIp);
+
         let date = new Date(Date.now()).getFullYear() + '-' +
             ("0" + (new Date(Date.now()).getMonth() + 1)).slice(-2) + '-' +
             ("0" + (new Date(Date.now()).getDate())).slice(-2) + ' ' +
@@ -31,23 +36,23 @@ module.exports.getUrl = async function (req, res) {
             ("0" + new Date(Date.now()).getMinutes()).slice(-2) + ':' +
             ("0" + new Date(Date.now()).getSeconds()).slice(-2);
 
-        if (block) {
-            const user = new User({
-                UserAgent: req.body.UserAgent,
-                UTM: req.body.UTM,
-                reason: 'This ip is in black list!',
-                language: req.body.language.toUpperCase(),
-                url: null,
-                ip,
-                country: data.countryCode,
-                city: data.city,
-                bot: 1,
-                unique,
-                date: date
-            });
-            await user.save()
-            res.status(200).json({status: false})
-        } else {
+        // if (block) {
+        //     const user = new User({
+        //         UserAgent: req.body.UserAgent,
+        //         UTM: req.body.UTM,
+        //         reason: 'This ip is in black list!',
+        //         language: req.body.language.toUpperCase(),
+        //         url: null,
+        //         ip,
+        //         country: data.countryCode,
+        //         city: data.city,
+        //         bot: 1,
+        //         unique,
+        //         date: date
+        //     });
+        //     await user.save()
+        //     res.status(200).json({status: false})
+        // } else {
             let reason = null
             if (data.url === null) {
                 if (data.reason.length < 0) {
@@ -76,7 +81,7 @@ module.exports.getUrl = async function (req, res) {
                 date: date
             });
             await user.save()
-        }
+        // }
 
     } catch (e) {
         errorHandler(res, e)
@@ -123,25 +128,25 @@ function checkCountry(ip, language) {
     return {url, countryCode, city, reason}
 }
 
-function parceIpForCompare(ip, allBlackIp) {
-    let newIp = ip.split('.').map(item => {
-        if ((item.length < 1)) return item = '000'
-        if (item.length === 1) return item = '00' + item
-        if (item.length === 2) return item = '0' + item
-        if (item.length === 3 || item.length > 3) return item
-    })
-    return compareIp(newIp.join(''), allBlackIp)
-}
-
-function compareIp(ip, allBlackIp) {
-    let block = false;
-    allBlackIp.map(item => {
-        if (item.firstDiapason <= ip && item.secondDiapason >= ip &&
-            item.firstDiapason !== '000000000000' &&
-            item.secondDiapason !== '255255255255') {
-            block = true
-        }
-    })
-    // return block
-    return false
-}
+// function parceIpForCompare(ip, allBlackIp) {
+//     let newIp = ip.split('.').map(item => {
+//         if ((item.length < 1)) return item = '000'
+//         if (item.length === 1) return item = '00' + item
+//         if (item.length === 2) return item = '0' + item
+//         if (item.length === 3 || item.length > 3) return item
+//     })
+//     return compareIp(newIp.join(''), allBlackIp)
+// }
+//
+// function compareIp(ip, allBlackIp) {
+//     let block = false;
+//     allBlackIp.map(item => {
+//         if (item.firstDiapason <= ip && item.secondDiapason >= ip &&
+//             item.firstDiapason !== '000000000000' &&
+//             item.secondDiapason !== '255255255255') {
+//             block = true
+//         }
+//     })
+//     // return block
+//     return false
+// }
