@@ -1,22 +1,44 @@
 const express = require('express')
 const mongoose = require('mongoose')
-// const path = require('path');
+const fs = require("fs");
+const path = require('path');
+const morgan = require('morgan');
 const bodyParser = require('body-parser')
+
 const urlRoute = require('./routes/url');
 const keys = require('./config/keys')
+const Logs = require('./models/Logs')
 const app = express();
+
+
 
 mongoose.connect(keys.mongoURI, {useUnifiedTopology: true, useNewUrlParser: true })
     .then(() => console.log('MongoDB connected'))
     .catch(error => console.log(error));
 
-app.use(require('morgan')('dev'))
+app.use(morgan('dev'))
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
 app.use(require('cors')())
 app.set('trust proxy',true);
+
+app.use(morgan('combined', {
+    skip: function (req, res) {
+        const log = new Logs({
+            ip: req.ip,
+            body: req.body,
+            time: req._startTime,
+            method: req.method,
+            originalUrl: req.originalUrl,
+            status: res.statusCode,
+            userAgent: req.headers['user-agent'],
+        })
+        log.save()
+    }
+
+}))
+
 //Start download black ip from ips.txt
-// const fs = require("fs");
 // const Netmask = require('netmask').Netmask
 // const Address6 = require('ip-address').Address6;
 // const ip6addr = require('ip6addr')
