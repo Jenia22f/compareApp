@@ -35,8 +35,8 @@ const userSchema = new Schema({
     unique: {
         type: String
     },
-    dataTime: {
-        type: String
+    date: {
+        type: Date
     }
 })
 
