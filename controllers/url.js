@@ -24,7 +24,12 @@ module.exports.getUrl = async function (req, res) {
         }
         const allBlackIp = await Ip.find({})
         const block = parceIpForCompare(ip, allBlackIp);
-        let date = new Date(Date.now()).toString();
+        let date = new Date(Date.now()).getFullYear() + '-' +
+            ("0" + (new Date(Date.now()).getMonth() + 1)).slice(-2) + '-' +
+            ("0" + (new Date(Date.now()).getDate())).slice(-2) + ' ' +
+            ("0" + new Date(Date.now()).getHours()).slice(-2) + ':' +
+            ("0" + new Date(Date.now()).getMinutes()).slice(-2) + ':' +
+            ("0" + new Date(Date.now()).getSeconds()).slice(-2);
 
         if (block) {
             const user = new User({
@@ -38,7 +43,7 @@ module.exports.getUrl = async function (req, res) {
                 city: data.city,
                 bot: 1,
                 unique,
-                dataTime: date
+                date: date
             });
             await user.save()
             res.status(200).json({status: false})
@@ -68,7 +73,7 @@ module.exports.getUrl = async function (req, res) {
                 city: data.city,
                 bot: 0,
                 unique,
-                dataTime: date
+                date: date
             });
             await user.save()
         }
