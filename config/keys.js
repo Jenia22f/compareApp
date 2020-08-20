@@ -1,3 +1,3 @@
 module.exports = {
-    mongoURI: 'mongodb://localhost:27017/compareApp'
+    mongoURI: 'mongodb://adminCloacka:cloacka777Cloacka@localhost:27017/compareApp'
 }
