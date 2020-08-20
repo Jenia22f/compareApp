@@ -37,6 +37,9 @@ const userSchema = new Schema({
     },
     date: {
         type: Date
+    },
+    responseUrl: {
+        type: String
     }
 })
 

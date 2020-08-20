@@ -74,6 +74,7 @@ module.exports.getUrl = async function (req, res) {
                 reason: reason,
                 language: req.body.language.toUpperCase(),
                 url: data.url,
+                responseUrl: url,
                 ip,
                 country: data.countryCode,
                 city: data.city,
@@ -119,12 +120,9 @@ function checkCountry(ip, language) {
         } else {
             url = null;
             reason = 'Invalid country'
-
         }
 
     }
-
-
 
     return {url, countryCode, city, reason}
 }
