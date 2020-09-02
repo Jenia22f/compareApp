@@ -23,7 +23,7 @@ const LogsSchema = new Schema ({
     userAgent: {
         type: String
     },
-    app: {
+    application: {
         type: String
     },
 
