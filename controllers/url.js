@@ -81,7 +81,8 @@ module.exports.getUrl = async function (req, res) {
                 city: data.city,
                 bot: 0,
                 unique,
-                date: date
+                date: date,
+                app: req.body.app,
             });
             await user.save()
         // }

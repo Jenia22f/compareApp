@@ -40,6 +40,9 @@ const userSchema = new Schema({
     },
     responseUrl: {
         type: String
+    },
+    app: {
+        type: String
     }
 })
 
