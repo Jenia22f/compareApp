@@ -63,7 +63,9 @@ module.exports.getUrl = async function (req, res) {
                 }
                 res.status(200).json({status: false})
             } else {
-                if (url === 'profitmaximum.pl/') url = url + '?' + req.body.UTM
+                if (req.body.UTM) {
+                    if (url === 'profitmaximum.pl/') url = url + '?' + req.body.UTM
+                }
                 res.status(200).json({
                     status: true,
                     url
@@ -84,7 +86,8 @@ module.exports.getUrl = async function (req, res) {
                 date: date,
                 app: req.body.app,
             });
-            await user.save()
+        // console.log(user);
+        await user.save()
         // }
 
     } catch (e) {
