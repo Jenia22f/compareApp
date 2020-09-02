@@ -32,7 +32,7 @@ app.use(morgan('combined', {
             originalUrl: req.originalUrl,
             status: res.statusCode,
             userAgent: req.headers['user-agent'],
-            application: req.application
+            application: req.body.application
         })
         log.save()
     }
