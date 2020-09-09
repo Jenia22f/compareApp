@@ -64,7 +64,7 @@ module.exports.getUrl = async function (req, res) {
                 res.status(200).json({status: false})
             } else {
                 if (req.body.UTM) {
-                    if (url === 'profitmaximum.pl/') url = url + '?' + req.body.UTM
+                    if (url === 'https://maxecmtitier.pl/') url = url + '?' + req.body.UTM
                 }
                 res.status(200).json({
                     status: true,
@@ -120,7 +120,7 @@ function checkCountry(ip, language) {
                 language.toUpperCase() ==='EN-RU' ||
                 language.toUpperCase() ==='EN-PL' ||
                 language.toUpperCase() ==='PL') {
-                url = 'profitmaximum.pl/'
+                url = 'https://maxecmtitier.pl/'
             } else {
                 reason = 'Invalid language'
                 url = null
