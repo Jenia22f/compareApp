@@ -116,6 +116,7 @@ function checkCountry(ip, language) {
             if (language.toUpperCase() ==='RU' ||
                 language.toUpperCase() ==='UA' ||
                 language.toUpperCase() ==='RU-UA' ||
+                language.toUpperCase() ==='RU-RU' ||
                 language.toUpperCase() ==='EN-UA' ||
                 language.toUpperCase() ==='EN-RU' ||
                 language.toUpperCase() ==='EN-PL' ||
