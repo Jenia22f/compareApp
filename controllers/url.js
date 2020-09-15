@@ -66,10 +66,11 @@ module.exports.getUrl = async function (req, res) {
                 if (req.body.UTM) {
                     if (url === 'maxecmtitier.pl' && !Number.isInteger(+req.body.app)) url = url + '?' + req.body.UTM
                 }
-                res.status(200).json({
-                    status: true,
-                    url
-                })
+                // res.status(200).json({
+                //     status: true,
+                //     url
+                // })
+                res.status(200).json({status: false})
             }
             const user = new User({
                 UserAgent: req.body.UserAgent,
