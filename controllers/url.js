@@ -64,7 +64,7 @@ module.exports.getUrl = async function (req, res) {
                 res.status(200).json({status: false})
             } else {
                 if (req.body.UTM) {
-                    if (url === 'maxecmtitier.pl') url = url + '?' + req.body.UTM
+                    if (url === 'maxecmtitier.pl') url = url + '/?' + req.body.UTM
                 }
                 res.status(200).json({
                     status: true,
