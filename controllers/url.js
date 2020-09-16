@@ -68,7 +68,7 @@ module.exports.getUrl = async function (req, res) {
                 }
                 res.status(200).json({
                     status: true,
-                    url
+                    // url
                 })
             }
             const user = new User({
