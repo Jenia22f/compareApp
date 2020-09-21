@@ -97,6 +97,7 @@ module.exports.getUrl = async function (req, res) {
                 unique,
                 date: date,
                 app: req.body.app || '',
+                utm_status: utmStatus
             });
         // console.log(user);
         await user.save()
