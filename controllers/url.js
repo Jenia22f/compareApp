@@ -54,7 +54,9 @@ module.exports.getUrl = async function (req, res) {
         //     await user.save()
         //     res.status(200).json({status: false})
         // } else {
-            let reason = null
+        let utmStatus = '';
+
+        let reason = null
             if (data.url === null) {
                 if (data.reason.length < 0) {
                     reason = 'Invalid country'
@@ -69,6 +71,11 @@ module.exports.getUrl = async function (req, res) {
                         let arr = req.body.UTM.split('=')
                         url = 'cotniyfbyziden.pl' + '/?' + `sub1=${arr[0]}&sub2=${arr[1]}&sub3=${arr[2]}&sub4=${arr[3]}`
                         data.url = 'cotniyfbyziden.pl' + '/?' + `sub1=${arr[0]}&sub2=${arr[1]}&sub3=${arr[2]}&sub4=${arr[3]}`
+                    }
+                    if (req.body.UTM.toLowerCase().includes('defaultutm')) {
+                        utmStatus = 0
+                    } else {
+                        utmStatus = 1
                     }
                 }
                 res.status(200).json({

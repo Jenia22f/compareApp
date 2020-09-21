@@ -43,6 +43,9 @@ const userSchema = new Schema({
     },
     app: {
         type: String
+    },
+    utm_status: {
+        type: String
     }
 })
 
