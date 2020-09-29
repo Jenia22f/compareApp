@@ -111,7 +111,8 @@ function checkCountry(ip, language, app) {
                 if (app === 'com.appside.polishnewsapp') {
                     url = 'pulsbihzdnmnesu.info'
                 } else {
-                    url = 'maxefmier.pl'
+                    // url = 'maxefmier.pl'
+                    url = 'google.com.ua'
                     // url = 'maxecmtitier.pl'
                 }
 
