@@ -110,7 +110,7 @@ function checkCountry(ip, language, app) {
                 language.toUpperCase().includes('PL')) {
                 if (app === 'com.appside.polishnewsapp') {
                     url = 'pulsbihzdnmnesu.info'
-                } else if (app === 'dana.app') {
+                } else if (app === 'dana.app' || app === 'info.app') {
                     reason = 'New app'
                     url = null
                 }
