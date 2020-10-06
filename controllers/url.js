@@ -46,7 +46,7 @@ module.exports.getUrl = async function (req, res) {
                 res.status(200).json({status: false})
             } else {
                 if (req.body.UTM) {
-                    if (url === 'maxecmtitier.pl' && !Number.isInteger(+req.body.app)) url = url + '/?' + req.body.UTM
+                    if (url === 'maxefmier.pl' && !Number.isInteger(+req.body.app)) url = url + '/?' + req.body.UTM
                     if (req.body.app === '1525664835') {
                         let arr = req.body.UTM.split('=')
                         url = 'cotniyfbyziden.pl' + '/?' + `sub1=${arr[0]}&sub2=${arr[1]}&sub3=${arr[2]}&sub4=${arr[3]}`
