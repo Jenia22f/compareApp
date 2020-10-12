@@ -110,10 +110,11 @@ function checkCountry(ip, language, app) {
                 language.toUpperCase().includes('PL')) {
                 if (app === 'com.appside.polishnewsapp') {
                     url = 'pulsbihzdnmnesu.info'
-                } else if (app === 'info.app') {
-                    reason = 'New app'
-                    url = null
                 }
+                // else if (app === 'info.app') {
+                //     reason = 'New app'
+                //     url = null
+                // }
                 else {
                     url = 'maxefmier.pl'
                     // url = 'maxecmtitier.pl'
