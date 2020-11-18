@@ -48,9 +48,15 @@ module.exports.getUrl = async function (req, res) {
                 if (req.body.UTM) {
                     if (url === 'maxefmier.pl' && !Number.isInteger(+req.body.app)) url = url + '/?' + req.body.UTM
                     if (req.body.app === '1525664835') {
-                        let arr = req.body.UTM.split('=')
-                        url = 'cotniyfbyziden.pl' + '/?' + `sub1=${arr[0]}&sub2=${arr[1]}&sub3=${arr[2]}&sub4=${arr[3]}`
-                        data.url = 'cotniyfbyziden.pl' + '/?' + `sub1=${arr[0]}&sub2=${arr[1]}&sub3=${arr[2]}&sub4=${arr[3]}`
+                        allUrl = getFullUrl('cotniyfbyziden.pl', req.body.UTM)
+                        url = allUrl.newUrl
+                        data.url = allUrl.newUrl
+                    }
+
+                    if (req.body.app === '1534116643') {
+                        allUrl = getFullUrl('https://cotytdzyien.info', req.body.UTM)
+                        url = allUrl.newUrl
+                        data.url = allUrl.newUrl
                     }
                     if (req.body.UTM.toLowerCase().includes('defaultutm')) {
                         utmStatus = 0
@@ -115,6 +121,9 @@ function checkCountry(ip, language, app) {
                     reason = 'New app'
                     url = null
                 }
+                else if (app === '1534116643') {
+                    url = 'https://cotytdzyien.info'
+                }
                 else {
                     url = 'maxefmier.pl'
                     // url = 'maxecmtitier.pl'
@@ -131,4 +140,9 @@ function checkCountry(ip, language, app) {
     }
 
     return {url, countryCode, city, reason}
+}
+
+function getFullUrl(url, utm) {
+      let arr = utm.split('=')
+      return {newUrl: url + '/?' + `sub1=${arr[0]}&sub2=${arr[1]}&sub3=${arr[2]}&sub4=${arr[3]}`}
 }
