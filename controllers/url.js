@@ -48,7 +48,7 @@ module.exports.getUrl = async function (req, res) {
                 if (req.body.UTM) {
                     if (url === 'maxefmier.pl' && !Number.isInteger(+req.body.app)) url = url + '/?' + req.body.UTM
                     if (req.body.app === '1525664835') {
-                        allUrl = getFullUrl('cotniyfbyziden.pl', req.body.UTM)
+                        allUrl = getFullUrl('cotniyfbyziden.info', req.body.UTM)
                         url = allUrl.newUrl
                         data.url = allUrl.newUrl
                     }
