@@ -48,13 +48,13 @@ module.exports.getUrl = async function (req, res) {
                 if (req.body.UTM) {
                     if (url === 'maxefmier.pl' && !Number.isInteger(+req.body.app)) url = url + '/?' + req.body.UTM
                     if (req.body.app === '1525664835') {
-                        allUrl = getFullUrl('https://cotytdzyien.info', req.body.UTM)
+                        allUrl = getFullUrl('cotytdzyien.info', req.body.UTM)
                         url = allUrl.newUrl
                         data.url = allUrl.newUrl
                     }
 
                     if (req.body.app === '1534116643') {
-                        allUrl = getFullUrl('https://cotytdzyien.info', req.body.UTM)
+                        allUrl = getFullUrl('cotytdzyien.info', req.body.UTM)
                         url = allUrl.newUrl
                         data.url = allUrl.newUrl
                     }
@@ -122,7 +122,7 @@ function checkCountry(ip, language, app) {
                     url = null
                 }
                 else if (app === '1534116643') {
-                    url = 'https://cotytdzyien.info'
+                    url = 'cotytdzyien.info'
                 }
                 else {
                     url = 'maxefmier.pl'
