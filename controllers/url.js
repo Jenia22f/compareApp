@@ -143,6 +143,10 @@ function checkCountry(ip, language, app) {
 }
 
 function getFullUrl(url, utm) {
-      let arr = utm.split('=')
-      return {newUrl: url + '/?' + `sub1=${arr[0]}&sub2=${arr[1]}&sub3=${arr[2]}&sub4=${arr[3]}`}
+      if (utm === 'defaultUTM') {
+          return {newUrl: url}
+      } else {
+          let arr = utm.split('=')
+          return {newUrl: url + '/?' + `sub1=${arr[0]}&sub2=${arr[1]}&sub3=${arr[2]}&sub4=${arr[3]}`}
+      }
 }
