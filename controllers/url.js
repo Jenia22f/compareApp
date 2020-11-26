@@ -117,9 +117,8 @@ function checkCountry(ip, language, app) {
                 if (app === 'com.appside.polishnewsapp') {
                     url = 'pulsbihzdnmnesu.info'
                 }
-                else if (app === 'info.news') {
-                    reason = 'New app'
-                    url = null
+                else if (app === 'info.app') {
+                    url = 'cotytqdzien.info'
                 }
                 else if (app === '1534116643') {
                     url = 'cotytdzyien.info'
