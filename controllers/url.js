@@ -53,11 +53,11 @@ module.exports.getUrl = async function (req, res) {
                         data.url = allUrl.newUrl
                     }
 
-                    if (req.body.app === '1534116643') {
-                        allUrl = getFullUrl('cotytdzyien.info', req.body.UTM)
-                        url = allUrl.newUrl
-                        data.url = allUrl.newUrl
-                    }
+                    // if (req.body.app === '1534116643') {
+                    //     allUrl = getFullUrl('cotytdzyien.info', req.body.UTM)
+                    //     url = allUrl.newUrl
+                    //     data.url = allUrl.newUrl
+                    // }
                     if (req.body.UTM.toLowerCase().includes('defaultutm')) {
                         utmStatus = 0
                     } else {
@@ -121,7 +121,8 @@ function checkCountry(ip, language, app) {
                     url = 'cotytqdzien.info'
                 }
                 else if (app === '1534116643') {
-                    url = 'cotytdzyien.info'
+                    // url = 'cotytdzyien.info'
+                    url = null
                 }
                 else {
                     url = 'magexemizer.pl'
