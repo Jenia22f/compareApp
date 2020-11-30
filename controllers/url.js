@@ -113,9 +113,8 @@ function checkCountry(ip, language, app) {
                 else if (app === 'info.app') {
                     url = 'cotytqdzien.info'
                 }
-                else if (app === '1534116643') {
-                    // url = 'cotytdzyien.info'
-                    url = null
+                else if (app === '1542363893') {
+                    url = 'cotytdzyien.info'
                 }
                 else {
                     url = 'magexemizer.pl'
