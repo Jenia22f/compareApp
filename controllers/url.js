@@ -30,17 +30,18 @@ module.exports.getUrl = async function (req, res) {
                     if (url === 'magexemizer.pl' && !Number.isInteger(+req.body.app)) url = url + '/?' + req.body.UTM
 
                     if (req.body.UTM.toLowerCase().includes('defaultutm')) {
-                        utmStatus = 0
+                        data.utmStatus = 0
                     } else {
-                        utmStatus = 1
+                        data.utmStatus = 1
                         let allUrl = getFullUrl(data.url, req.body.UTM)
                         url = allUrl.newUrl
                         data.url = allUrl.newUrl
                     }
                 }
-                res.status(200).json({
+              await res.status(200).json({
                     status: true,
-                    url
+                    url,
+                    utmStatus: data.utmStatus
                 })
             }
             const user = new User({
@@ -57,7 +58,7 @@ module.exports.getUrl = async function (req, res) {
                 unique: uniqueUser ? 0 : 1,
                 date: date,
                 app: req.body.app || '',
-                utm_status: utmStatus
+                utm_status: data.utmStatus
             });
 
         await user.save()
@@ -113,7 +114,7 @@ function checkCountry(ip, language, app) {
         }
     }
 
-    return {url, countryCode, city, reason}
+    return {url, countryCode, city, reason, utmStatus: 0}
 }
 
 function getFullUrl(url, utm) {
