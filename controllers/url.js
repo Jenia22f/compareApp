@@ -41,7 +41,6 @@ module.exports.getUrl = async function (req, res) {
               await res.status(200).json({
                     status: true,
                     url,
-                    utmStatus: data.utmStatus
                 })
             }
             const user = new User({
