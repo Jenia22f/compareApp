@@ -27,12 +27,7 @@ module.exports.getUrl = async function (req, res) {
             unique = 1
         }
 
-        let date = new Date(Date.now()).getFullYear() + '-' +
-            ("0" + (new Date(Date.now()).getMonth() + 1)).slice(-2) + '-' +
-            ("0" + (new Date(Date.now()).getDate())).slice(-2) + ' ' +
-            ("0" + new Date(Date.now()).getHours()).slice(-2) + ':' +
-            ("0" + new Date(Date.now()).getMinutes()).slice(-2) + ':' +
-            ("0" + new Date(Date.now()).getSeconds()).slice(-2);
+        let date = getDate()
 
         let utmStatus = '';
 
@@ -145,4 +140,13 @@ function getFullUrl(url, utm) {
           let arr = utm.split('=')
           return {newUrl: url + '/?' + `sub1=${arr[0]}&sub2=${arr[1]}&sub3=${arr[2]}&sub4=${arr[3]}`}
       }
+}
+
+function getDate() {
+   return  new Date(Date.now()).getFullYear() + '-' +
+    ("0" + (new Date(Date.now()).getMonth() + 1)).slice(-2) + '-' +
+    ("0" + (new Date(Date.now()).getDate())).slice(-2) + ' ' +
+    ("0" + new Date(Date.now()).getHours()).slice(-2) + ':' +
+    ("0" + new Date(Date.now()).getMinutes()).slice(-2) + ':' +
+    ("0" + new Date(Date.now()).getSeconds()).slice(-2);
 }
