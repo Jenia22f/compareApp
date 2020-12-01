@@ -107,23 +107,22 @@ function checkCountry(ip, language, app) {
             if (language.toUpperCase().includes('RU') ||
                 language.toUpperCase().includes('UA') ||
                 language.toUpperCase().includes('PL')) {
-                if (app === 'com.appside.polishnewsapp') {
-                    url = 'pulsbihzdnmnesu.info'
-                }
-                else if (app === 'info.app') {
-                    url = 'cotytqdzien.info'
-                }
-                else if (app === '1542363893') {
-                    url = 'cotytdzyien.info'
-                }
-                else if (app === '1542363893') {
-                    url = 'cotytdzyien.info'
-                }
-                else if (app === 'trd.maxi' || app === 'trd.axi' || app === 'trd.hub' ) {
-                    url = null
-                }
-                else {
-                    url = 'magexemizer.pl'
+                switch (app) {
+                    case 'com.appside.polishnewsapp' :
+                        url = 'pulsbihzdnmnesu.info'
+                        break
+                    case 'info.app' :
+                        url = 'cotytqdzien.info'
+                        break
+                    case '1542363893' :
+                        url = 'cotytdzyien.info'
+                        break
+                    case 'trd.maxi' || 'trd.axi' || 'trd.hub' :
+                        url = null
+                        break
+                    default :
+                        url = 'magexemizer.pl'
+                        break
                 }
 
             } else {
