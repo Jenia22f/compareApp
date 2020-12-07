@@ -1,7 +1,7 @@
 const geoip = require('geoip-lite');
 const ip6addr = require('ip6addr');
 const Address6 = require('ip-address').Address6;
-const Ip = require('../models/IpAddress');
+// const Ip = require('../models/IpAddress');
 const User = require('../models/User');
 const errorHandler = require('../utils/errorHandler');
 
@@ -97,6 +97,9 @@ function checkCountry(ip, language, app) {
                         url = 'cotytdzyien.info'
                         break
                     case 'trd.maxi' || 'trd.axi' || 'trd.hub' :
+                        url = null
+                        break
+                    case 'victor.business' :
                         url = null
                         break
                     default :
