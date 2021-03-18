@@ -19,7 +19,9 @@
     "ip6addr": "^0.2.3",
     "mongoose": "^5.9.28",
     "morgan": "^1.10.0",
-    "netmask": "^1.0.6"
+    "netmask": "^1.0.6",
+    "node-fetch": "^2.6.1",
+    "node-schedule": "^2.0.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"

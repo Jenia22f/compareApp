@@ -1,11 +1,15 @@
+
 const express = require('express')
 const mongoose = require('mongoose')
 const fs = require("fs");
 const path = require('path');
 const morgan = require('morgan');
 const bodyParser = require('body-parser')
+const schedule = require('node-schedule');
+const fetch = require('node-fetch');
 
 const urlRoute = require('./routes/url');
+const domainUrl = require('./routes/domains');
 const keys = require('./config/keys')
 const Logs = require('./models/Logs')
 const app = express();
@@ -111,8 +115,40 @@ app.use(morgan('combined', {
 //     return newArr
 // }
 
+
 //End download black ip from ips.txt
+const domains = [
+    'https://baitebavnbnek.info',
+   'https://baitcbawanek.info'
+]
+isAvailable().then()
+schedule.scheduleJob('5 * * * *', function(){
+   isAvailable().then()
+});
+
+async function isAvailable() {
+    for (const url of domains) {
+        keys.domains = domains
+        const request = await fetch(url)
+            .then(response => {
+                return true
+            })
+            .catch(error => {
+                return false
+            });
+        console.log(request);
+        if (request) {
+            console.log(url , 'URL!!!!!')
+            keys.mainDomain = url
+            break
+        } else {
+            domains.shift()
+            keys.domains = domains
+        }
+    }
+}
 
 app.use('/api/url', urlRoute)
+app.use('/api/mydom', domainUrl)
 
 module.exports = app;
